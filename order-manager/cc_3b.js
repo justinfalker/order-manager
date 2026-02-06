@@ -38,7 +38,7 @@ inventory.push({
   stock: 65
 });
 
-console.log("Removed product:", inventory.pop());
+console.log("Removed Product:", inventory.pop());
 
 inventory[2].price = 16.99; 
 
@@ -83,7 +83,7 @@ order.items.forEach(item => {
 });
 
   if (insufficientItem) {
-    return `Insufficient stock for item ${insufficientItem} in order ${order.orderId}`;
+    return `Insufficient Stock for Item ${insufficientItem} In Order ${order.orderId}`;
   }
 
   order.items.forEach(item => {
@@ -92,7 +92,7 @@ order.items.forEach(item => {
     total += product.price * item.qty;
   });
 
-  return `Order ${order.orderId} total: $${total.toFixed(2)}`;
+  return `Order ${order.orderId} Total: $${total.toFixed(2)}`;
 };
 
 orders.forEach(order => {
@@ -100,17 +100,17 @@ orders.forEach(order => {
 });
 
 console.log(
-  `Total inventory value: $${inventory
+  `Total Inventory Value: $${inventory
     .reduce((total, product) => total + (product.price * product.stock), 0)
     .toFixed(2)}`
 );
 
 console.log(
-  "Low stock items:",
+  "Low Stock Items:",
   inventory.filter(product => product.stock <= 100)
 );
 
 console.log(
-  "Price list:",
+  "Price List:",
   inventory.map(product => `${product.sku} — $${product.price.toFixed(2)}`)
 );

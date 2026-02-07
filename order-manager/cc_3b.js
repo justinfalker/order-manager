@@ -69,39 +69,36 @@ let orders = [
   }
 ];
 
-let processOrder = (order) => {
+orders.forEach(order => {
   let total = 0;
   let insufficientItem = null;
 
-order.items.forEach(item => {
-  if (insufficientItem) return;
+  order.items.forEach(item => {
+    if (insufficientItem) return;
 
-  let product = inventory.find(p => p.sku === item.sku);
-  if (!product || product.stock < item.qty) {
-    insufficientItem = item.sku;
-  }
-});
+    let product = inventory.find(p => p.sku == item.sku);
+    if (!product || product.stock < item.qty) {
+      insufficientItem = item.sku;
+    }
+  });
 
   if (insufficientItem) {
-    return `Insufficient Stock for Item ${insufficientItem} In Order ${order.orderId}`;
+    console.log(`Insufficient Stock for Item ${insufficientItem} In Order ${order.orderId}`);
+    return;
   }
 
   order.items.forEach(item => {
-    let product = inventory.find(p => p.sku === item.sku);
+    let product = inventory.find(p => p.sku == item.sku);
     product.stock -= item.qty;
     total += product.price * item.qty;
   });
 
-  return `Order ${order.orderId} Total: $${total.toFixed(2)}`;
-};
-
-orders.forEach(order => {
-  console.log(processOrder(order));
+  console.log(`Order ${order.orderId} Total: $${total.toFixed(2)}`);
 });
 
 console.log(
   `Total Inventory Value: $${inventory
-    .reduce((total, product) => total + (product.price * product.stock), 0)
+    .reduce((total, product) => total + product.price * product.stock, 0)
     .toFixed(2)}`
 );
 
